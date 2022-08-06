@@ -1,3 +1,11 @@
+Works on macos & linux.
+Need help for Windows functions.
+
+## Install
+
+```sh
+v install --git https://github.com/ken0x0a/sigaction
+```
 
 ## Usage
 
@@ -16,8 +24,8 @@ fn main() {
 	}
 
 	mut act := sigaction.new_action()
-	// act.set_action(sig_cb)
-	act.set_handler(cb2)
+	// act.set_action(sig_cb) // should call only one of [`set_action`, `set_handler`].
+	act.set_handler(cb2) // lambda also works
 	act.trap(.hup)?
 	act.trap(.int)?
 	act.trap(.term)?
