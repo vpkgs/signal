@@ -5,19 +5,20 @@ module sigaction
 fn C.sigaction(sig int, act &C.sigaction, oact &C.sigaction) int
 fn C.getppid() int
 
-union C.__sigaction_u {
-mut:
-	__sa_handler   voidptr
-	__sa_sigaction voidptr
-}
+// union C.__sigaction_u {
+// mut:
+// 	__sa_handler   voidptr
+// 	__sa_sigaction voidptr
+// }
 
 struct C.sigaction {
 mut:
 	// union __sigaction_u __sigaction_u;  /* signal handler */
-	__sigaction_u C.__sigaction_u
+	// __sigaction_u C.__sigaction_u
 	// __sigaction_u.__sa_handler voidptr
 	// __sigaction_u.__sa_sigaction voidptr
-	// sa_sigaction voidptr
+	sa_handler voidptr
+	sa_sigaction voidptr
 	sa_mask  C.sigset_t // signal mask to apply
 	sa_flags int        // see signal options below
 }
@@ -109,11 +110,12 @@ pub fn new_action() Sigaction {
 }
 
 pub fn (mut sa Sigaction) set_handler(action SigHandlerCb) {
-	sa.__sigaction_u.__sa_handler = voidptr(action)
+	sa.sa_handler = voidptr(action)
 }
 
 pub fn (mut sa Sigaction) set_action(action SigActionCb) {
-	sa.__sigaction_u.__sa_sigaction = voidptr(action)
+	// sa.__sigaction_u.__sa_sigaction = voidptr(action)
+	sa.sa_sigaction = voidptr(action)
 	sa.sa_flags = C.SA_SIGINFO // use `sigaction`, not `handler`
 }
 
