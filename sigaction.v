@@ -3,24 +3,13 @@ module sigaction
 #include <signal.h>
 
 fn C.sigaction(sig int, act &C.sigaction, oact &C.sigaction) int
-fn C.getppid() int
-
-// union C.__sigaction_u {
-// mut:
-// 	__sa_handler   voidptr
-// 	__sa_sigaction voidptr
-// }
 
 struct C.sigaction {
 mut:
-	// union __sigaction_u __sigaction_u;  /* signal handler */
-	// __sigaction_u C.__sigaction_u
-	// __sigaction_u.__sa_handler voidptr
-	// __sigaction_u.__sa_sigaction voidptr
-	sa_handler voidptr
+	sa_handler   voidptr
 	sa_sigaction voidptr
-	sa_mask  C.sigset_t // signal mask to apply
-	sa_flags int        // see signal options below
+	sa_mask      C.sigset_t // TODO: signal mask to apply
+	sa_flags     int        // TODO: flags
 }
 
 pub type Sigaction = C.sigaction
@@ -50,7 +39,9 @@ struct C.ucontext_t {
 }
 
 pub type Ucontext = C.ucontext_t
+
 pub type SigActionCb = fn (sig int, info &Siginfo, uap &Ucontext)
+
 pub type SigHandlerCb = fn (sig int)
 
 pub enum Sig {
@@ -85,8 +76,6 @@ pub enum Sig {
 	io = C.SIGIO
 	// pwr = C.SIGPWR
 	sys = C.SIGSYS
-	// rtmin = C.SIGRTMIN
-	// rtmax = C.SIGRTMAX
 }
 
 // ```v
