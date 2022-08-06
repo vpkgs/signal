@@ -1,5 +1,6 @@
 Works on macos & linux.
-Need help for Windows functions.
+
+Need help for Windows functionalities.
 
 ## Install
 
