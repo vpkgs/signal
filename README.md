@@ -5,7 +5,7 @@ Need help for Windows functionalities.
 ## Install
 
 ```sh
-v install --git https://github.com/ken0x0a/signal
+v install --git https://github.com/vpkgs/signal
 ```
 
 ## Usage
