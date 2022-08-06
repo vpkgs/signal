@@ -4,13 +4,13 @@ Need help for Windows functions.
 ## Install
 
 ```sh
-v install --git https://github.com/ken0x0a/sigaction
+v install --git https://github.com/ken0x0a/signal
 ```
 
 ## Usage
 
 ```v
-import sigaction { Siginfo, Ucontext }
+import signal { Siginfo, Ucontext }
 import time
 
 fn sig_cb(sig int, siginfo &Siginfo, context &Ucontext) {
@@ -23,7 +23,7 @@ fn main() {
 		exit(0)
 	}
 
-	mut act := sigaction.new_action()
+	mut act := signal.new_action()
 	// act.set_action(sig_cb) // should call only one of [`set_action`, `set_handler`].
 	act.set_handler(cb2) // lambda also works
 	act.trap(.hup)?

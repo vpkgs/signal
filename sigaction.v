@@ -1,4 +1,4 @@
-module sigaction
+module signal
 
 #include <signal.h>
 
